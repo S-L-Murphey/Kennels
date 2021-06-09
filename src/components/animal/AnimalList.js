@@ -12,6 +12,7 @@ export const AnimalList = () => {
       }, [])//the empty array bracket is the 'dependency array' 
 
       return (
+          
         <section className="animals">
           {
             animals.map(animal => {
@@ -28,5 +29,6 @@ export const AnimalList = () => {
             })
           }
         </section>
+      
       )
     }
