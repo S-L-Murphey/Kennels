@@ -11,6 +11,7 @@ import { EmployeeList } from "./employee/EmployeeList"
 import { AnimalForm } from "./animal/AnimalForm"
 import "./Kennel.css"
 import { EmployeeForm } from "./employee/EmployeeForm"
+import { LocationForm } from "./location/LocationForm"
 
 export const ApplicationViews = () => {
     return (
@@ -19,6 +20,10 @@ export const ApplicationViews = () => {
                 <Route exact path="/">
                     <h2>Our Locations</h2>
                     <LocationList />
+                </Route>
+
+                <Route exact path="/locations/create">
+                    <LocationForm />
                 </Route>
             </LocationProvider>
 
