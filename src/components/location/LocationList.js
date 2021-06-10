@@ -12,6 +12,7 @@ export const LocationList = () => {
       }, [])//the empty array bracket is the 'dependency array' 
 
       return (
+         
         <section className="locations">
           {
             locations.map(location => {
