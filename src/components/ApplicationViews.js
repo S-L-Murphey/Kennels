@@ -15,6 +15,7 @@ import { LocationForm } from "./location/LocationForm"
 import { AnimalDetail } from "./animal/AnimalDetail"
 import { EmployeeDetail } from "./employee/EmployeeDetail"
 import { LocationDetail } from "./location/LocationDetail"
+import { AnimalSearch } from "./animal/AnimalSearch"
 
 export const ApplicationViews = () => {
     return (
@@ -25,37 +26,31 @@ export const ApplicationViews = () => {
                     <h2>Our Locations</h2>
                     <LocationList />
                 </Route>
-                <AnimalProvider>
-                    <EmployeeProvider>
-                        <Route exact path="/locations/edit/:locationId(\d+)">
-                            <LocationForm />
-                        </Route>
-                    </EmployeeProvider>
-                </AnimalProvider>
 
-                <AnimalProvider>
-                    <EmployeeProvider>
+                <Route exact path="/locations/edit/:locationId(\d+)">
+                    <LocationForm />
+                </Route>
+                    
+                <Route exact path="/locations/detail/:locationId(\d+)">
+                    <LocationDetail />
+                </Route>
 
-                        <Route exact path="/locations/detail/:locationId(\d+)">
-                            <LocationDetail />
-                        </Route>
-
-                    </EmployeeProvider>
-                </AnimalProvider>
             </LocationProvider>
 
             <AnimalProvider>
                 <Route path="/animals">
                     <h2>Our Animals</h2>
                     <AnimalList />
+                    <AnimalSearch />
                 </Route>
-                <LocationProvider>
-                    <CustomerProvider>
+
+                <CustomerProvider>
+                    <LocationProvider>
                         <Route exact path="/animals/edit/:animalId(\d+)">
                             <AnimalForm />
                         </Route>
-                    </CustomerProvider>
-                </LocationProvider>
+                    </LocationProvider>
+                </CustomerProvider>
 
                 <Route exact path="/animals/detail/:animalId(\d+)">
                     <AnimalDetail />

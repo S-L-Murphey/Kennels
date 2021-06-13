@@ -6,9 +6,9 @@ import { useParams, useHistory } from "react-router-dom"
 export const AnimalDetail = () => {
     const { animals, getAnimalById, releaseAnimal } = useContext(AnimalContext)
     const [animal, setAnimal] = useState({ location: {}, customer: {} })
-
     const { animalId } = useParams();
     const history = useHistory();
+    const animalIdInt = parseInt(animalId)
 
     const handleRelease = () => {
         releaseAnimal(animal.id)
@@ -19,9 +19,10 @@ export const AnimalDetail = () => {
 
     useEffect(() => {
 
-        getAnimalById(animalId).then((thisAnimal) => {
-            setAnimal(thisAnimal)
-        })
+        const thisAnimal = animals.find(a => a.id === animalIdInt) || { location: {}, customer: {} }
+
+        setAnimal(thisAnimal)
+    
         // const thisAnimal = animals.find(a => a.id === parseInt(animalId)) || { location: {}, customer: {} }
         //setAnimal(thisAnimal)
 

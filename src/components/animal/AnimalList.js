@@ -1,5 +1,6 @@
-import React, { useContext, useEffect } from "react"
+import React, { useContext, useEffect, useState } from "react"
 import { AnimalContext } from "./AnimalProvider"
+import { AnimalDetail } from "./AnimalDetail"
 import "./Animal.css"
 import { useHistory } from "react-router-dom"
 import { Link } from "react-router-dom"
@@ -8,19 +9,30 @@ import { Link } from "react-router-dom"
 
 export const AnimalList = () => {
 
-    const { getAnimals, animals } = useContext(AnimalContext)
+    const { animals, getAnimals, searchTerms } = useContext(AnimalContext)
 
+    const [filteredAnimals, setFiltered] = useState([])
     const history = useHistory()
 
     useEffect(() => {
-        //useEffect - reach out to the world for something
         getAnimals()
-    }, [])//the empty array bracket is the 'dependency array' 
+    }, [])
+
+    useEffect(() => {
+        if (searchTerms !== "") {
+            // If the search field is not blank, display matching animals
+            const subset = animals.filter(animal => animal.name.toLowerCase().includes(searchTerms.toLowerCase()))
+            setFiltered(subset)
+        } else {
+            // If the search field is blank, display all animals
+            setFiltered(animals)
+        }
+    }, [searchTerms, animals])
 
     return (
 
-        
-            <>
+
+        <>
             <h1>Animals</h1>
 
             <button onClick={() => history.push("/animals/create")}>
@@ -29,9 +41,21 @@ export const AnimalList = () => {
 
             <div className="animals">
                 {
-                    animals.map(animal => <h3 className="animal"><Link to={`/animals/detail/${animal.id}`}>
-                          { animal.name } 
-                        </Link></h3> )
+                    filteredAnimals.map(animal => {
+                        return (
+                            <>
+                                <div className="animal">
+                                    <Link to={`/animals/detail/${animal.id}`}>
+                                        {animal.name}
+                
+                                    </Link>
+                                    <div>{animal.breed}</div>
+                                </div>
+                               
+                            </>
+                        )
+                    })
+
                 }
             </div>
         </>
