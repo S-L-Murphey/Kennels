@@ -6,9 +6,14 @@ export const LocationProvider = (props) => {
     const [locations, setLocations] = useState([])
 
     const getLocations = () => {
-        return fetch("http://localhost:8088/locations")
+        return fetch("http://localhost:8088/locations?_embed=employees&_embed=animals")
         .then(res => res.json())
         .then(setLocations)
+    }
+
+    const getLocationById = (locationId) => {
+        return fetch(`http://localhost:8088/locations/${locationId}?_embed=employees&_embed=animals`)
+        .then(res => res.json())
     }
 
     const addLocation = locationObj => {
@@ -22,9 +27,21 @@ export const LocationProvider = (props) => {
         .then(response => response.json())
     }
 
+    const updateLocation = location => {
+        return fetch(`http://localhost:8088/locations/${location.id}`, {
+          method: "PUT",
+          headers: {
+            "Content-Type": "application/json"
+          },
+          body: JSON.stringify(location)
+        })
+          .then(getLocations)
+      }
+
     return (
         <LocationContext.Provider value={{
-            locations, getLocations, addLocation
+            locations, getLocations, addLocation, 
+            getLocationById, updateLocation
         }}>
             {props.children}
         </LocationContext.Provider>

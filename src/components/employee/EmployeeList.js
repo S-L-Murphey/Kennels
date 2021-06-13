@@ -2,12 +2,13 @@ import React, { useContext, useEffect } from "react"
 import { EmployeeContext } from "./EmployeeProvider"
 import "./Employee.css"
 import { useHistory } from "react-router-dom"
+import { Link } from "react-router-dom"
 
 
 
 export const EmployeeList = () => {
 
-    const { employees, getEmployees } = useContext(EmployeeContext)
+    const { getEmployees, employees } = useContext(EmployeeContext)
 
     const history = useHistory()
 
@@ -18,25 +19,23 @@ export const EmployeeList = () => {
 
       return (
         <>
-      <h2>Employees</h2>
-      <button onClick={
-        () => history.push("/employees/create")
-      }>
-            Add Employee
-      </button>
-      <div className="employees">
-      {
-        employees.map(employee => {
-          return (
-            <div className="employee" id={`employee--${employee.id}`}>
-              <div className="employee__name">
-                Name: { employee.name }
-              </div>
-            </div>
-          )
-        })
-      }
-      </div>
+        <h1>Employees</h1>
+
+        {/*<button onClick={() => history.push("/employees/create")}>
+            Make Reservation
+      </button>*/}
+
+        <div className="employees">
+            {
+                employees.map(employee =><div className="employee"> <Link to={`/employees/detail/${employee.id}`}>
+                    
+                      { employee.name }
+                    
+                    </Link>
+                    </div>
+                )
+            }
+        </div>
     </>
 )
 }

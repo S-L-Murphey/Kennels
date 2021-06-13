@@ -1,11 +1,11 @@
 import React, { useContext, useEffect } from "react"
 import { LocationContext } from "./LocationProvider"
 import "./Location.css"
-import { useHistory } from "react-router-dom"
+import { useHistory, Link } from "react-router-dom"
 
 export const LocationList = () => {
 
-    const { locations, getLocations } = useContext(LocationContext)
+    const { getLocations, locations } = useContext(LocationContext)
 
     const history = useHistory()
 
@@ -26,18 +26,26 @@ export const LocationList = () => {
         <div className="locations">
         {
           locations.map(location => {
+           
             return (
+                <>
+                
               <div className="location" id={`location--${location.id}`}>
-                <div className="location__name">
+              <Link to={`/locations/detail/${location.id}`}>
+                <h2 className="location__name">
                   Name: { location.name }
+                </h2>
+                </Link>
+                <div className="location__employee">
+                  Employees: { location.employees.length }
                 </div>
-                <div className="location__address">
-                  Address: { location.address }
+                <div className="location__animal">
+                  Animals: { location.animals.length }
                 </div>
               </div>
+            </>
             )
-          })
-        }
+        })}
         </div>
       </>
       )
