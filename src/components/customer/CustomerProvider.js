@@ -6,13 +6,13 @@ export const CustomerProvider = (props) => {
     const [customers, setCustomers] = useState([])
 
     const getCustomers = () => {
-        return fetch("http://localhost:8088/customers")
+        return fetch("https://nsskennelsapi.herokuapp.com/customers")
         .then(res => res.json())
         .then(setCustomers)
     }
 
     const addCustomer = customerObj => {
-        return fetch("http://localhost:8088/customers", {
+        return fetch("https://nsskennelsapi.herokuapp.com/customers", {
             method: "POST",
             headers: {
                 "Content-Type": "application/json"
